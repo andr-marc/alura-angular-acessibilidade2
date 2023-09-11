@@ -4,24 +4,31 @@
 <button class="button button-primary" type="button" (click)="show()">Show modal</button>
 
 <ng-template #modal>
-  <div class="form-field">
-    <label for="firstName">First name</label>
-    <input id="firstName" [(value)]="firstName">
-  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label for="firstName">First name</label>
+      <input id="firstName" formControlName="firstName">
+    </div>
+    
+    <div class="form-field">
+      <label for="surname">Surname</label>
+      <input id="surname"  formControlName="surname">
+    </div>
+    
+    <div class="form-field">
+      <label for="age">Age</label>
+      <input id="age"  formControlName="age">
+    </div>
+
+    <label for="info">Subscribe to newsletter</label>
+    <input id="info" type="checkbox"  formControlName="info" (change)="info = !info">
+    <p [@fade] *ngIf="info">This is a placeholder for more information checkbox.</p>
+
+    <div class="button-group">
+      <button [attr.aria-disabled]="form.invalid" class="button button-primary" >Submit</button>
+      <button class="button button-secondary" type="button" (click)="modalRef.close()">Cancel</button>
+    </div>
+  </form>
   
-  <div class="form-field">
-    <label for="surname">Surname</label>
-    <input id="surname">
-  </div>
-  
-  <div class="form-field">
-    <label for="age">Age</label>
-    <input id="age">
-  </div>
-  
-  <div class="button-group">
-    <button class="button button-primary" type="button">Submit</button>
-    <button class="button button-secondary" type="button" (click)="modalRef.close()">Cancel</button>
-  </div>
 </ng-template>
 
